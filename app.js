@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser =require("body-parser");
-const port = 3000;
 const app = express();
 var items =["Stay Positive!"];
 app.use(bodyParser.urlencoded({extended:true}));
