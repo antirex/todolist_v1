@@ -1,33 +1,48 @@
 const express = require("express");
-const bodyParser =require("body-parser");
+const ejs = require("ejs");
+const bodyParser = require("body-parser");
 const app = express();
-var items =["Stay Positive!"];
-app.use(bodyParser.urlencoded({extended:true}));
-app.set("view engine","ejs"); //tells our app to use ejs as our view-engine ...necessary to be under const app;
+let items = [];
+let workItems = [];
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs"); //tells our app to use ejs as our view-engine ...necessary to be under const app;
 app.use(express.static("css"));
-app.get("/",function(req,res){
-    var day = new Date();
-   
 
-    var options ={
-        weekday : "long",
-        day: "numeric",
-        month: "long"
-    }
-    var today =day.toLocaleDateString("en-US",options);
+app.get("/", function (req, res) {
+  let day = new Date();
 
-    res.render("list",{weekDay: today, newItem: items});
-    res.send();
-})
+  let options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  };
+  let today = day.toLocaleDateString("en-US", options);
 
-app.post("/",function(req,res){
-    var item = req.body.addItem;
+  res.render("list", { listTitle: today, newItem: items });
+  res.send();
+});
+
+app.post("/", function (req, res) {
+  let item = req.body.addItem;
+    
+    console.log(req.body);
+    
+  if (req.body.list === "Work") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
     items.push(item);
     res.redirect("/");
-    
-})
+  }
 
-app.listen(process.env.PORT || 3000,function(){
-    console.log("your server is live at");
-    
-})
+});
+
+app.get("/work", function (req, res) {
+  res.render("list", { listTitle: "Work List", newItem: workItems });
+  res.send();
+});
+
+app.listen(process.env.PORT || 3000, function () {
+  console.log("your server is live at");
+});
+

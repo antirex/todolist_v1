@@ -21,12 +21,11 @@ h1{
     padding: 2rem;
 }
 .input{
+    padding: 1rem;
     margin-top: 3rem;
-    padding: 2rem 4rem;
     display: block;
     border-bottom: 5px solid white;
     border-top: none;
-   
     border-left: none;
     border-right: none;
     border-radius: 0;
@@ -77,4 +76,9 @@ input[type=checkbox] {
 input:checked+p{
     text-decoration: line-through;
     text-decoration-color: cornflowerblue;
+}
+footer{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
 }
